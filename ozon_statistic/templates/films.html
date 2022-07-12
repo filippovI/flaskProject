@@ -1,8 +1,0 @@
-{% extends 'base.html' %}
-{% block content %}
-{% for film in films %}
-    <h1>{{ film.title }}</h1>
-    <p>Год выпуска: {{ film.age }}</p>
-    <p>Цена: {{ film.price }}</p>
-{% endfor %}
-{% endblock %}

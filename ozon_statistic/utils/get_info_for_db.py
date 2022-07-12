@@ -1,4 +1,5 @@
 import requests as rq
+
 from utils import config as cfg
 from app import Items, db
 
