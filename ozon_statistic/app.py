@@ -1,5 +1,7 @@
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, url_for, request, flash
 from flask_sqlalchemy import SQLAlchemy
+
+from utils.config import DEBUG
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///analytics.db'
@@ -21,14 +23,19 @@ class Items(db.Model):
         return '<Items %r>' % self.id
 
 
+class Users(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    login = db.Column(db.String(30), nullable=False)
+    password = db.Column(db.String(30), nullable=False)
+    admin = db.Column(db.String(5), nullable=False, default="False")
+
+    def __repr__(self):
+        return '<Users %r>' % self.id
+
+
 @app.route('/')
 def index():
     return render_template('index.html')
-
-
-@app.route('/about')
-def about():
-    return render_template('about.html')
 
 
 @app.route('/ozon_stat')
@@ -43,4 +50,4 @@ def kazan():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=DEBUG)
